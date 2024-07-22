@@ -1,0 +1,184 @@
+body {
+    background: rgb(244, 244, 244);
+    font-family: "Mulish", sans-serif !important;
+    font-size: 13px;
+}
+.container{
+    float: left;
+    width: 92%;
+    height: 600px;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 5%;
+    background: white;
+}
+.left-detail{
+    width: 40%;
+    height: 100%;
+    float: left;
+}
+.image-detail-product{
+    padding-left: 7%;
+    width: 93%;
+    float: left;
+    height: 70%;
+}
+.right-detail{
+    width: 60%;
+    height: 100%;float: left;
+}
+.name-detail{
+    width: 90%;
+    min-height: 5%;
+    font-size: 23px;
+    padding: 20px 5px 5px 0px;
+}
+.category-detail{
+    width: 90%;
+    font-size: 15px;
+}
+.price-detail{
+    width: 90%;
+    margin-top: 15px;
+    min-height: 7%;
+    font-size: 23px;
+    color:  #e70303;
+}
+.button-detail{
+    width: 90%;
+}
+.button-guaranteed{
+    width: 220px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background: #d0021b;
+    color: white;
+}
+.button-VAT{
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background: #d0021b;
+    color: white;
+    margin-left: 2%;
+}
+.quantity{
+    margin-top: 3%;
+    width: 124px;
+    height: 35px;
+    border: solid 1px rgb(227 227 227);
+}
+.input-quantity{
+    width: 40px;
+    height: 30px;
+    border: none;
+    outline: none;
+    text-indent: 15px;
+}
+.button-increase{
+    width: 40px;
+    height: 35px;   
+    border: none;
+    font-size: 15px;
+    background: none;
+    cursor: pointer;
+}
+.button-reduce{
+    width: 40px;
+    height: 35px;
+    border: none;
+    font-size: 15px;
+    background: none;
+    cursor: pointer;
+}
+.donate{
+    margin-top: 3%;
+    width: 90%;
+    height: 40%;
+    background: rgb(248, 248, 248);
+    border: solid rgb(232, 232, 232) 1px;
+    border-radius: 2px;
+}
+.donate-title{
+    width: 98%;
+    height: 12%;
+    font-size: 15px;
+    padding-top: 12px;
+    padding-left: 11px;
+    border: solid rgb(232, 232, 232) 1px;
+}
+.donate-price{
+    padding-top: 10px;
+    width: 100%;
+    height: 25px;
+}
+.donate-price-icon{
+    width: 3%;
+    height: 100%;
+    font-size: 15px;
+    padding-left: 2%;
+    float: left;
+    color: #d0021b;
+}
+.content-donate-price{
+    width: 94%;
+    height: 100%;
+    font-size: 15px;
+    float: left;
+}
+.donate-more{
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    padding-top: 6px;
+    border-radius: 3px;
+    background: #fee2e2;
+    color: #d70018
+}
+.icon-more{
+    width: 5%;
+    height: 100%;
+    float: left;
+    font-size: 30px;
+    padding-left: 3%;
+}
+.content-more{
+    padding-top: 11px;
+    width: 92%;
+    height: 100%;
+    float: left;
+}
+.detail-more{
+    margin-top: 3%;
+    width: 100%;
+    height: 50%;
+}
+.container-detail-more{
+    width: 100%;
+    height: 23px;
+}
+.icon-detail-more{
+    width: 3%;
+    height: 100%;
+    float: left;
+    margin-left: 3%;
+    color: rgb(12, 171, 60);
+}
+.content-detail-more{
+    width: 94%;
+    height: 100%;
+    float: left;
+}
+.button-detail-cart{
+    width: 90%;
+    height: 8%;
+    background: #e70303;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5%;
+    cursor: pointer;
+}

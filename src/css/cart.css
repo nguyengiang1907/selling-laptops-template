@@ -1,0 +1,353 @@
+body {
+    background: rgb(244, 244, 244);
+    font-family: "Mulish", sans-serif !important;
+    font-size: 13px;
+}
+.container-cart{
+    width: 92%;
+    min-height: 400px;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 4%;
+    float: left;
+}
+.content-left{
+    width: 70%;
+    min-height: 400px;
+    float: left;
+}
+.content-cart{
+    width: 100%;
+    min-height: 180px;
+    background:white;
+    float: left;
+}
+.product-seen{
+    margin-top: 20px;
+    width: 100%;
+    min-height: 450px;
+    background:white;
+    float: left;
+}
+.content-right{
+    width: 28%;
+    height: 350px;
+    float: left;
+    margin-left: 2%;
+    background: white;
+}
+.title-content-left-cart{
+    width: 96%;
+    height: 30px;
+    float: left;
+    margin-top: 13px;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: solid rgb(231, 231, 231) 1px;
+}
+.data-cart{
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+    height: 90px;
+    float: left;
+    border-bottom: solid rgb(231, 231, 231) 1px;
+}
+.image-cart{
+    width: 10%;
+    height: 100%;
+    float: left;
+}
+.name-price-cart{
+    margin-left: 1%;
+    width: 50%;
+    height: 100%;
+    float: left;
+    font-size: 15px;
+}
+.name-cart{
+    width: 100%;
+    margin-top: 4%;
+    min-height: 25%;
+    transition: color 0.2s ease;
+}
+.name-cart:hover{
+    color: #e70303;
+}
+.price-cart{
+    width: 100%;
+    margin-top: 1%;
+    min-height: 25%;
+    font-size: 13px;
+}
+.color-price{
+    color: #e70303; 
+}
+.button-quantity-delete{
+    width: 16%;
+    height: 100%;
+    float: left;
+}
+.quantity-cart{
+    margin-left: 1%;
+    margin-top: 12%;
+    width: 124px;
+    height: 35px;
+    border: solid 1px rgb(227 227 227);
+}
+.input-quantity-cart{
+    width: 40px;
+    height: 30px;
+    border: none;
+    outline: none;
+    text-indent: 15px;
+}
+.button-increase-cart{
+    width: 40px;
+    height: 35px;   
+    border: none;
+    font-size: 15px;
+    background: none;
+}
+.button-reduce-cart{
+    width: 40px;
+    height: 35px;
+    border: none;
+    font-size: 15px;
+    background: none;
+}
+.delete-cart{
+    margin-top: 9%;
+    width: 100%;
+    height: 30%;
+    text-align: center;
+    font-size: 14px;
+}
+.sum-price-cart{
+    font-weight: bold;
+    margin-left: 7%;
+    width: 15%;
+    height: 40%;
+    margin-top: 5%;
+    color: #e73636; 
+    font-size: 14px;
+    float: left;
+}
+.button-delete-cart{
+    background: none;
+    border: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    font-weight: bold;
+}
+.button-delete-cart:hover{
+    color: #e70303;
+}
+.title-content-right{
+    width: 92%;
+    height: 9%;
+    float: left;
+    padding-top: 4%;
+    margin-left: 4%;
+    margin-right: 4%;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: solid rgb(234, 234, 234) 1px;
+}
+.sum-price-order{
+    width: 92%;
+    height: 10%;
+    float: left;
+    padding: 10px 0px;
+    margin-left: 4%;
+    margin-right: 4%;
+    border-bottom: solid rgb(234, 234, 234) 1px;
+}
+.content-sum-price-order{
+    padding-top: 7px ;
+    width: 30%;
+    float: left;
+    font-size: 17px;
+}
+.data-sum-price-order{
+    font-weight: bold;
+    padding-top: 6px;
+    margin-left: 10%;
+    width: 50%;
+    float: left;
+    font-size: 22px;
+    color: #e70303;
+}
+.note-order{
+    width: 92%;
+    margin-left: 4%;
+    margin-right: 4%;
+    height: 40%;
+    float: left;
+}
+.title-note-order{
+    width: 100%;
+    height: 15%;
+    font-size: 17px;
+    padding-top: 10px;
+}
+.textarea-note-order{
+    margin-top: 8px;
+    width: 100%;
+    height: 70%;
+    float: left;
+}
+.text-area-note{
+    width: 98%;
+    height: 80%;
+    outline: none;
+    border: solid rgb(199, 199, 199) 1px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 5px;
+    text-indent: 5px;
+}
+.promotion-order{
+    width: 92%;
+    height: 10%;
+    margin-left: 4%;
+    margin-right: 4%;
+    float: left;
+}
+.input-promotion-order{
+    margin-top: 10px;
+    width: 98%;
+    height: 100%;
+    border-radius: 3px;
+    font-size: 14px;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+    text-indent: 5px;
+    border: solid rgb(189, 189, 189) 1px;
+}
+.buy-laptop{
+    margin-top: 12%;
+    width: 92%;
+    height: 10%;
+    float: left;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+.button-buy-laptop{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 3px;
+    background: black;
+    color: white;
+}
+.arrow-order{
+    width: 100%;
+    height: 20%;
+    float: left;
+    background: white;
+}
+.container-arrow{
+    width: 60%;
+    height: 40%;
+    margin-left: 30%;
+    margin-right: 4%;
+    margin-top: 7%;
+}
+.icon-arrow{
+    padding-top: 5px;
+    font-size: 20px;
+    width: 12%;
+    height: 100%;
+    float: left;
+    color: black;
+ 
+}
+.content-arrow-order{
+    padding-top: 3%;
+    width: 80%;
+    height: 100%;
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+    
+}
+.no-underline {
+    text-decoration: none;
+    color: initial;
+}
+.all-product-seen {
+    color: black;
+    border: solid rgb(220, 220, 220) 1px;
+    float: left;
+    width: 181px;
+    margin: 25px 0 0 17px;
+    height: 350px;
+    transition: box-shadow 0.2s ease;
+}
+
+.all-product-seen:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-product-seen {
+    width: 95%;
+    height: 50%;
+    margin: 5px;
+    /* background: rgb(209, 209, 209);   */
+    border-radius: 5px;
+    float: left;
+    cursor: pointer;
+}
+.page-seen{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    float: left;
+    margin-bottom: 15px;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #e70303;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.page-link:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.active .page-link {
+    background-color: #e70303;
+    color: white;
+    border-color: #e70303;
+}
+.pagination .page-item.disabled {
+    display: none;
+}
+.title-seen{
+    width: 98%;
+    height: 15px;
+    padding-top: 20px;
+    padding-left: 2%;
+    font-size: 18px;
+    float: left;
+    font-weight: bold;
+}
