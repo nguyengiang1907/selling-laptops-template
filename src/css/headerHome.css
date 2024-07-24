@@ -105,6 +105,16 @@
   float: left;
 }
 
+.icon-data-avatar img {
+  border-radius: 50%;
+  width: 30px; /* Thay đổi kích thước nếu cần */
+  height: 30px; /* Đảm bảo chiều cao và chiều rộng giống nhau để tạo thành hình tròn */
+}
+.content-data-avatar{
+  margin-top: 8%;
+  margin-left: 2%;
+}
+
 .account {
   cursor: pointer;
   width: 75%;
@@ -126,6 +136,8 @@
   background: none;
   border: none;
   border: solid 2px white;
+  position: relative;
+  display: inline-block;
 }
 
 .icon-cart {
@@ -135,6 +147,20 @@
   float: left;
   color: white;
 
+}
+.quantity-header-cart {
+  position: absolute;
+  top: -10px; /* Điều chỉnh giá trị này để căn chỉnh theo ý muốn */
+  right: -10px; /* Điều chỉnh giá trị này để căn chỉnh theo ý muốn */
+  background-color: red; /* Màu nền để làm nổi bật số lượng */
+  color: white; /* Màu chữ */
+  border-radius: 50%; /* Để làm số lượng hình tròn */
+  width: 20px; /* Kích thước hình tròn */
+  height: 20px; /* Kích thước hình tròn */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* Điều chỉnh kích thước chữ */
 }
 
 .text-cart {

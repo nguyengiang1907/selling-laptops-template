@@ -4,10 +4,32 @@ import { LuPhoneCall } from "react-icons/lu";
 import { RxAvatar } from "react-icons/rx";
 import { BsCart3 } from "react-icons/bs";
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 export default function HeaderUser() {
- 
+  const [idUser, setIdUser] = useState(1);
+  const [cart,setCart] = useState([]);
+
+  async function getAccountById() {
+    const response = await axios.get(`http://localhost:8080/api/account/${idUser}`);
+    setIdUser(response.data)
+  }
+  async function getCartById(){
+    const response = await axios.get(`http://localhost:8080/api/cart/${idUser}`)
+    setCart(response.data);
+   
+  }
+  useEffect(() =>{
+    getCartById();
+  },[]);
+
+
+  useEffect(() => {
+    getAccountById();
+  }, []);
+
   return (
     <div>
       <div className='header-all'>
@@ -35,16 +57,37 @@ export default function HeaderUser() {
           </div>
           <div className='avatar'>
             <div className='icon-avatar'>
+            {idUser ? (
+                <div className='icon-data-avatar'>
+                  <img width={25} src={idUser.image}></img>
+                </div>
+              ) : (
+                <>
               <RxAvatar />
+                </>
+              )}
             </div>
             <div className='account'>
-              <span>Đăng nhập</span><br />
-              <span>Đăng ký</span>
+              {idUser ? (
+                <div className='content-data-avatar'>
+                <span>{idUser.name}</span>
+                </div>
+              ) : (
+                <>
+                  <span>Đăng nhập</span><br />
+                  <span>Đăng ký</span>
+                </>
+              )}
             </div>
           </div>
           <div className='cart'>
             <Link to={'/cart'}>
-            <button  className='button-cart'>
+              <button className='button-cart'>
+                <div className='quantity-header-cart'>
+                  <p>
+                  {cart.length}
+                  </p>
+                </div>
                 <div className='icon-cart'>
                   <BsCart3 />
                 </div>
