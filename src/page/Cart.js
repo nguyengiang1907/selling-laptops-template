@@ -10,6 +10,7 @@ import { FaDisplay } from "react-icons/fa6";
 import "../css/cart.css";
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { FaSadTear } from "react-icons/fa";
 
 export default function Cart() {
     const [idUser, setIdUser] = useState(1);
@@ -28,7 +29,7 @@ export default function Cart() {
         try {
             const response = await axios.get(`http://localhost:8080/api/seen/${idUser}`);
             const data = response.data;
-            
+
             // Kiểm tra data có phải là mảng không
             if (Array.isArray(data)) {
                 const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -87,6 +88,7 @@ export default function Cart() {
 
     async function deleteCart(idCart) {
         const response = await axios.delete(`http://localhost:8080/api/cart/deleteCart/${idCart}`);
+        window.location.reload();
         showCart();
     }
 
@@ -119,39 +121,50 @@ export default function Cart() {
                         <div className='title-content-left-cart'>
                             Giỏ hàng:
                         </div>
-                        {listCart.map((item, index) => (
-                            <div className='data-cart' key={index}>
-                                <Link to={`/detailProduct/${item.idLaptop.id}`}>
-                                    <div className='image-cart'>
-                                        <img width='80' src={item.idLaptop.image} alt="Laptop"></img>
-                                    </div>
-                                </Link>
-                                <div className='name-price-cart'>
-                                    <Link className="no-underline" to={`/detailProduct/${item.idLaptop.id}`}>
-                                        <div className='name-cart'>
-                                            <TextWithLimit text={item.idLaptop.name} limit={62} />
-                                        </div>
-                                    </Link>
-                                    <div className='price-cart'>
-                                        Giá sốc :
-                                        <span className='color-price'> {formatNumberWithCommas(item.idLaptop.price)}  ₫</span>
-                                    </div>
+                        {listCart.length === 0 ? (
+                            <div className='error-laptops'>
+                                <div className='icon-error-laptops'>
+                                    <FaSadTear />
                                 </div>
-                                <div className='button-quantity-delete'>
-                                    <div className='quantity-cart'>
-                                        <button onClick={() => increaseLaptopCart(item.id)} className='button-increase'>-</button>
-                                        <input className='input-quantity' type='text' value={item.quantity} readOnly />
-                                        <button onClick={() => reduceLaptopCart(item.id)} className='button-reduce'>+</button>
-                                    </div>
-                                    <div className='delete-cart'>
-                                        <button onClick={() => deleteCart(item.id)} className='button-delete-cart'>Xóa</button>
-                                    </div>
-                                </div>
-                                <div className='sum-price-cart'>
-                                    <span className='color-price'> {formatNumberWithCommas(item.idLaptop.price * item.quantity)}  ₫</span>
+                                <div className='content-error-laptops'>
+                                    <span>Chưa có sản phẩm nào !</span>
                                 </div>
                             </div>
-                        ))}
+                        ) : (
+                            listCart.map((item, index) => (
+                                <div className='data-cart' key={index}>
+                                    <Link to={`/detailProduct/${item.idLaptop.id}`}>
+                                        <div className='image-cart'>
+                                            <img width='80' src={item.idLaptop.image} alt="Laptop"></img>
+                                        </div>
+                                    </Link>
+                                    <div className='name-price-cart'>
+                                        <Link className="no-underline" to={`/detailProduct/${item.idLaptop.id}`}>
+                                            <div className='name-cart'>
+                                                <TextWithLimit text={item.idLaptop.name} limit={62} />
+                                            </div>
+                                        </Link>
+                                        <div className='price-cart'>
+                                            Giá sốc :
+                                            <span className='color-price'> {formatNumberWithCommas(item.idLaptop.price)} ₫</span>
+                                        </div>
+                                    </div>
+                                    <div className='button-quantity-delete'>
+                                        <div className='quantity-cart'>
+                                            <button onClick={() => increaseLaptopCart(item.id)} className='button-increase'>-</button>
+                                            <input className='input-quantity' type='text' value={item.quantity} readOnly />
+                                            <button onClick={() => reduceLaptopCart(item.id)} className='button-reduce'>+</button>
+                                        </div>
+                                        <div className='delete-cart'>
+                                            <button onClick={() => deleteCart(item.id)} className='button-delete-cart'>Xóa</button>
+                                        </div>
+                                    </div>
+                                    <div className='sum-price-cart'>
+                                        <span className='color-price'> {formatNumberWithCommas(item.idLaptop.price * item.quantity)} ₫</span>
+                                    </div>
+                                </div>
+                            ))
+                        )}
                     </div>
 
                     <div className='product-seen'>
