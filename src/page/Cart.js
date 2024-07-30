@@ -13,12 +13,15 @@ import ReactPaginate from 'react-paginate';
 import { FaSadTear } from "react-icons/fa";
 
 export default function Cart() {
-    const [idUser, setIdUser] = useState(1);
+    const [idUser, setIdUser] = useState(2);
     const [listCart, setListCart] = useState([]);
     const [sumPriceOrder, setSumPriceOrder] = useState(0);
     const [listSeen, setListSeen] = useState([]);
     const [currentSeenPage, setCurrentSeenPage] = useState(0);
     const itemsPerPage = 4;
+    const [comment,setComent] = useState("");
+    const [discountCode,setDiscountCode] = useState("");
+    const [idStatus,setIdStatus] = useState(1);
 
     async function showCart() {
         const response = await axios.get(`http://localhost:8080/api/cart/${idUser}`);
@@ -104,6 +107,22 @@ export default function Cart() {
         setCurrentSeenPage(event.selected);
     };
 
+    async function saveOrder(){
+        
+        const request = {
+            idStatus:idStatus,
+            listCart:listCart,
+            comment:comment,
+            discountCode:discountCode
+        }
+        console.log(request);
+
+        const response = await axios.post(`http://localhost:8080/api/order`, request)
+        console.log(response);
+        window.location.reload();
+    }
+
+
     const offset = currentSeenPage * itemsPerPage;
     const currentItems = listSeen.slice(offset, offset + itemsPerPage);
 
@@ -120,6 +139,9 @@ export default function Cart() {
                     <div className='content-cart'>
                         <div className='title-content-left-cart'>
                             Giỏ hàng:
+                        </div>
+                        <div className='sum-quantity-cart'>
+                            <span >{listCart.length} Sản phẩm</span>
                         </div>
                         {listCart.length === 0 ? (
                             <div className='error-laptops'>
@@ -171,59 +193,70 @@ export default function Cart() {
                         <div className='title-seen'>
                             <span>| SẢN PHẨM ĐÃ XEM </span>
                         </div>
-                        {currentItems.map((item, index) => (
-                            <Link to={`/detailProduct/${item.laptop.id}`} key={index}>
-                                <div className='all-product-seen'>
-                                    <div className='image-product-seen'>
-                                        <div key={index} className='data-category'>
-                                            <img width="155px" src={item.laptop.image} alt="Laptop"></img>
-                                        </div>
-                                    </div>
-                                    <div className='name-product'>
-                                        <span>
-                                            <TextWithLimit text={item.laptop.name} limit={42} />
-                                        </span>
-                                    </div>
-                                    <div className='price-product'>
-                                        <span>
-                                            {formatNumberWithCommas(item.laptop.price)} ₫
-                                        </span>
-                                    </div>
-                                    <div className='ram-product'>
-                                        <div className='icon-ram'>
-                                            <RiRam2Line />
-                                        </div>
-                                        <div className='data-ram'>
-                                            {item.laptop.ram}
-                                        </div>
-                                    </div>
-                                    <div className='cpu-product'>
-                                        <div className='icon-cpu'>
-                                            <HiMiniCpuChip />
-                                        </div>
-                                        <div className='data-cpu'>
-                                            {item.laptop.cpu}
-                                        </div>
-                                    </div>
-                                    <div className='display-product'>
-                                        <div className='icon-display'>
-                                            <FaDisplay />
-                                        </div>
-                                        <div className='data-display'>
-                                            {item.laptop.display}
-                                        </div>
-                                    </div>
-                                    <div className='appearance-product'>
-                                        <div className='icon-appearance'>
-                                            <IoIosColorFilter />
-                                        </div>
-                                        <div className='data-appearance'>
-                                            {item.laptop.appearance}
-                                        </div>
-                                    </div>
+                        {currentItems.length === 0 ? (
+                            <div className='error-laptops'>
+                                <div className='icon-error-laptops'>
+                                    <FaSadTear />
                                 </div>
-                            </Link>
-                        ))}
+                                <div className='content-error-laptops'>
+                                    <span>Chưa có sản phẩm nào !</span>
+                                </div>
+                            </div>
+                        ) : (
+                            currentItems.map((item, index) => (
+                                <Link to={`/detailProduct/${item.laptop.id}`} key={index}>
+                                    <div className='all-product-seen'>
+                                        <div className='image-product-seen'>
+                                            <div key={index} className='data-category'>
+                                                <img width="155px" src={item.laptop.image} alt="Laptop"></img>
+                                            </div>
+                                        </div>
+                                        <div className='name-product'>
+                                            <span>
+                                                <TextWithLimit text={item.laptop.name} limit={42} />
+                                            </span>
+                                        </div>
+                                        <div className='price-product'>
+                                            <span>
+                                                {formatNumberWithCommas(item.laptop.price)} ₫
+                                            </span>
+                                        </div>
+                                        <div className='ram-product'>
+                                            <div className='icon-ram'>
+                                                <RiRam2Line />
+                                            </div>
+                                            <div className='data-ram'>
+                                                {item.laptop.ram}
+                                            </div>
+                                        </div>
+                                        <div className='cpu-product'>
+                                            <div className='icon-cpu'>
+                                                <HiMiniCpuChip />
+                                            </div>
+                                            <div className='data-cpu'>
+                                                {item.laptop.cpu}
+                                            </div>
+                                        </div>
+                                        <div className='display-product'>
+                                            <div className='icon-display'>
+                                                <FaDisplay />
+                                            </div>
+                                            <div className='data-display'>
+                                                {item.laptop.display}
+                                            </div>
+                                        </div>
+                                        <div className='appearance-product'>
+                                            <div className='icon-appearance'>
+                                                <IoIosColorFilter />
+                                            </div>
+                                            <div className='data-appearance'>
+                                                {item.laptop.appearance}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))
+                        )}
                         <div className='page-seen'>
                             <ReactPaginate
                                 previousLabel={null}
@@ -262,14 +295,14 @@ export default function Cart() {
                             Ghi chú đơn hàng
                         </div>
                         <div className='textarea-note-order'>
-                            <textarea placeholder='Ghi chú' className='text-area-note'></textarea>
+                            <textarea onChange={(e) => setComent(e.target.value)} placeholder='Ghi chú' className='text-area-note'></textarea>
                         </div>
                     </div>
                     <div className='promotion-order'>
-                        <input placeholder='Nhập mã khuyến mãi (nếu có)' className='input-promotion-order'></input>
+                        <input  onChange={(e) => setDiscountCode(e.target.value)} placeholder='Nhập mã khuyến mãi (nếu có)' className='input-promotion-order'></input>
                     </div>
                     <div className='buy-laptop'>
-                        <button className='button-buy-laptop'>THANH TOÁN NGAY</button>
+                        <button className='button-buy-laptop' onClick={() => saveOrder()} >THANH TOÁN NGAY</button>
                     </div>
                     <div className='arrow-order'>
                         <div className='container-arrow'>

@@ -1,0 +1,116 @@
+body {
+    background: rgb(244, 244, 244);
+    font-family: "Mulish", sans-serif !important;
+    font-size: 13px;
+}
+.container-order{
+    width: 92%;
+    min-height: 300px;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 4%;
+    float: left;
+}
+.order-left{
+    width: 15%;
+    height: 300px;
+    float: left;
+}
+.order-left-data{
+    width: 100%;
+    min-height: 300px;
+}
+.order-right{
+    width: 83%;
+    min-height: 300px;
+    margin-left: 2%;
+    background: white;
+    float: left;
+}
+.data-right{
+    width: 96%;
+    height: 100px;
+    float: left;
+    margin: 1% 2% 0 2%;
+    border-bottom: solid 1px rgb(233, 233, 233);
+}
+.data-status{
+    margin-bottom: 5px;
+    padding-top: 15px;
+    padding-left: 10%;
+    width: 90%;
+    height: 31px;
+    background: white;
+    transition: background-color 0.2s ease;
+}
+.data-status:hover {
+    background-color: #e50100; /* Màu nền khi di chuột qua */
+    color: white;
+}
+.data-status.selected {
+    background-color: #e50100; /* Màu nền khi di chuột qua */
+    color: white;
+}
+.data-key-order{
+    width: 10%;
+    height: 25%;
+    float: left;
+    margin-left: 5%;
+    padding-top: 4%;
+    font-size: 14px;
+}
+.data-image-order{
+    width: 10%;
+    height: 75%;
+    float: left;
+}
+.data-name-order{
+    width: 25%;
+    height: 25%;
+    margin-left: 3%;
+    float: left;
+    padding-top: 3%;
+    font-size: 17px;
+}
+.data-quantity-order{
+    width: 10%;
+    height: 25%;
+    margin-left: 3%;
+    float: left;
+    padding-top: 4%;
+    font-size: 14px;
+}
+.data-price-order{
+    width: 15%;
+    height: 25%;
+    margin-left: 3%;
+    float: left;
+    padding-top: 4%;
+    font-size: 17px;
+    color: #e50100;
+}
+.data-status-order{
+    width: 15%;
+    height: 25%;
+    float: left;
+    padding-top: 4%;
+}
+.button-cancel-order{
+    margin-top: -10px;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background: #e50100;
+    color: white;
+}
+.button-reorder{
+    margin-top: -10px;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background: #e50100;
+    color: white;
+}
+
