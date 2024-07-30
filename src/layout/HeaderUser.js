@@ -9,21 +9,21 @@ import axios from 'axios';
 
 
 export default function HeaderUser() {
-  const [idUser, setIdUser] = useState(1);
-  const [cart,setCart] = useState([]);
+  const [idUser, setIdUser] = useState(2);
+  const [cart, setCart] = useState([]);
 
   async function getAccountById() {
     const response = await axios.get(`http://localhost:8080/api/account/${idUser}`);
     setIdUser(response.data)
   }
-  async function getCartById(){
+  async function getCartById() {
     const response = await axios.get(`http://localhost:8080/api/cart/${idUser}`)
     setCart(response.data);
-   
+
   }
-  useEffect(() =>{
+  useEffect(() => {
     getCartById();
-  },[]);
+  }, []);
 
 
   useEffect(() => {
@@ -57,20 +57,28 @@ export default function HeaderUser() {
           </div>
           <div className='avatar'>
             <div className='icon-avatar'>
-            {idUser ? (
+              {idUser ? (
                 <div className='icon-data-avatar'>
                   <img width={25} src={idUser.image}></img>
                 </div>
               ) : (
                 <>
-              <RxAvatar />
+                  <RxAvatar />
                 </>
               )}
             </div>
             <div className='account'>
               {idUser ? (
-                <div className='content-data-avatar'>
-                <span>{idUser.name}</span>
+                <div class="content-data-avatar">
+                  <div class="select-wrapper">
+                    <div class="select-selected">{<span>{idUser.name}</span>}</div>
+                    <div class="options-container">
+                      <Link to='/order' className="link-style">
+                        <div class="option-avatar" data-value="1">Đơn hàng</div>
+                      </Link>
+                      <div class="option-avatar" data-value="2">Đăng xuất</div>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <>
@@ -85,7 +93,7 @@ export default function HeaderUser() {
               <button className='button-cart'>
                 <div className='quantity-header-cart'>
                   <p>
-                  {cart.length}
+                    {cart.length}
                   </p>
                 </div>
                 <div className='icon-cart'>

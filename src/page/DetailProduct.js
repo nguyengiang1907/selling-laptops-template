@@ -11,9 +11,8 @@ import "../css/detailProduct.css"
 export default function DetailProduct() {
     const params = useParams();
     const [product, setProduct] = useState({});
-    const [idUser, setIdUser] = useState(1)
+    const [idUser, setIdUser] = useState(2)
     const [quantity, setQuantity] = useState(1);
-    const [newQuantity,setNewQuantity] = useState(1);
 
 
     async function getLaptop() {
@@ -41,16 +40,13 @@ export default function DetailProduct() {
     // };
 
     const increaseLaptop = () => {
-        if(quantity > 1){
-             setNewQuantity(quantity - 1);
-            setQuantity(newQuantity);
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
         }
-       
     };
 
     const reduceLaptop = () => {
-            setNewQuantity(quantity + 1);
-            setQuantity(newQuantity);
+        setQuantity((prevQuantity) => prevQuantity + 1);
     };
 
     const addLaptopToCart = (idUser, idLaptop) => {
@@ -59,16 +55,16 @@ export default function DetailProduct() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ quantity: newQuantity }),
+            body: JSON.stringify({ quantity: quantity }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     };
     return (
         <div>
@@ -103,11 +99,11 @@ export default function DetailProduct() {
                                 Đã bao gồm VAT
                             </button>
                         </div>
-                        
+
                         <div className='quantity'>
-                                <button onClick={increaseLaptop} className='button-increase'>-</button>
-                                <input className='input-quantity' type='text' value={quantity} readOnly />
-                                <button onClick={reduceLaptop} className='button-reduce'>+</button>
+                            <button onClick={increaseLaptop} className='button-increase'>-</button>
+                            <input className='input-quantity' type='text' value={quantity} readOnly />
+                            <button onClick={reduceLaptop} className='button-reduce'>+</button>
                         </div>
                         <div className='donate'>
                             <div className='donate-title'>

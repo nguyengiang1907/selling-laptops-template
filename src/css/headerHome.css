@@ -170,3 +170,52 @@
   color: white;
   padding-top: 10%;
 }
+.content-data-avatar {
+  position: relative;
+  width: 100%;
+  background: none;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.select-selected {
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 7%;
+}
+
+.options-container {
+  display: none;
+  position: absolute;
+  background-color: rgb(211, 26, 26);
+  z-index: 99;
+  width: 90%;
+  box-sizing: border-box;
+  top: 100%;
+  left: 0;
+ 
+}
+
+.select-wrapper:hover .options-container {
+  display: block;
+}
+
+.option-avatar {
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.option-avatar:hover {
+  background-color: white;
+  color: #d0021b;
+}
+.link-style{
+  text-decoration: none;
+  color: inherit;
+}

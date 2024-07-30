@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 export default function HomeProduct() {
   const [categorys, setCategorys] = useState([]);
   const [laptops, setLaptops] = useState([]);
-  const [idUser, setIdUser] = useState(1);
+  const [idUser, setIdUser] = useState(2);
   const [selectedOption, setSelectedOption] = useState('');
 
   async function showCategory() {
