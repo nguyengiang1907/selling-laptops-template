@@ -33,29 +33,12 @@ body {
     float: left;
     margin: 1% 2% 0 2%;
     border-bottom: solid 1px rgb(233, 233, 233);
-}
-.data-status{
-    margin-bottom: 5px;
-    padding-top: 15px;
-    padding-left: 10%;
-    width: 90%;
-    height: 31px;
-    background: white;
-    transition: background-color 0.2s ease;
-}
-.data-status:hover {
-    background-color: #e50100; /* Màu nền khi di chuột qua */
-    color: white;
-}
-.data-status.selected {
-    background-color: #e50100; /* Màu nền khi di chuột qua */
-    color: white;
-}
+}   
 .data-key-order{
-    width: 10%;
+    font-weight: bold;
+    width: 15%;
     height: 25%;
     float: left;
-    margin-left: 5%;
     padding-top: 4%;
     font-size: 14px;
 }
@@ -67,7 +50,7 @@ body {
 .data-name-order{
     width: 25%;
     height: 25%;
-    margin-left: 3%;
+    margin-left: 4%;
     float: left;
     padding-top: 3%;
     font-size: 17px;
@@ -112,5 +95,59 @@ body {
     height: 30px;
     background: #e50100;
     color: white;
+}
+.search-status-order{
+    width: 83%;
+    min-height: 50px;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    background: white;
+    float: left;
+}
+.data-order-status{
+    cursor: pointer;
+    width: 16%;
+    padding-top: 18px;
+    height: 32px;
+    float: left;
+    text-align: center;
+    font-size: 15px;
+    transition: background-color 0.4s ease;
+}
+.data-order-status :hover{
+    background: white;
+    color: #e50100;
+}
+.data-order-status.selected{
+    font-weight: bold;
+    background: white;
+    color: #e03030;
+    border-bottom: solid 3px #de4343 ;
+}
+.account-order{
+    width: 80%;
+    height: 30px;
+    padding-top: 10px;
+
+}
+.image-account-order {
+    width: 25%;
+    height: 40px;
+    float: left;
+
+}
+.image-account-order img{
+  border-radius: 50%;
+  width: 30px; /* Thay đổi kích thước nếu cần */
+  height: 30px; /* Đảm bảo chiều cao và chiều rộng giống nhau để tạo thành hình tròn */
+}
+.content-account-order{
+    padding-top: 10px;
+    width: 65%;
+    margin-left: 5px;
+    height: 30px;
+    float: left;
+    font-size: 15px;
+    
 }
 
