@@ -102,7 +102,7 @@ export default function DetailProduct() {
 
                         <div className='quantity'>
                             <button onClick={increaseLaptop} className='button-increase'>-</button>
-                            <input className='input-quantity' type='text' value={quantity} readOnly />
+                            <input className='input-quantity' type='number' value={quantity} readOnly />
                             <button onClick={reduceLaptop} className='button-reduce'>+</button>
                         </div>
                         <div className='donate'>

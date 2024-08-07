@@ -84,6 +84,7 @@ body {
     font-size: 15px;
     background: none;
     cursor: pointer;
+    border-right: solid 1px rgb(227 227 227);;
 }
 .button-reduce{
     width: 40px;
@@ -92,6 +93,7 @@ body {
     font-size: 15px;
     background: none;
     cursor: pointer;
+    border-left: solid 1px rgb(227 227 227);;
 }
 .donate{
     margin-top: 3%;

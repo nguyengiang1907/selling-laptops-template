@@ -11,26 +11,30 @@ export default function Order() {
     const [orders, setOrders] = useState([]);
     const [selectedId, setSelectedId] = useState(1);
 
-    const handleClick = (id, index) => {
+    const handleClick = (idUser, id, index) => {
         setSelectedId(id);
-        handleCategoryClick(id, index);
+        handleCategoryClick(idUser, id, index);
     };
 
     async function getAllStatus() {
         const response = await axios.get("http://localhost:8080/api/status");
         setStatus(response.data);
     }
-    async function getAllOrderByIdStatus(idStatus) {
-        const response = await axios.get(`http://localhost:8080/api/order/${idAccount}/${idStatus}`);
+    async function getAllOrderByIdStatus(idUser,idStatus) {
+        const response = await axios.get(`http://localhost:8080/api/order/${idUser}/${idStatus}`);
         setOrders(response.data);
     }
     async function updateStatus(idOrder, idStatus, updateStatus) {
         const response = await axios.put(`http://localhost:8080/api/order/${idOrder}/${updateStatus}`);
-        handleCategoryClick(idStatus);
+        handleCategoryClick(idAccount.id ,idStatus);
+    }
+    async function getAccountById() {
+        const response = await axios.get(`http://localhost:8080/api/account/${idAccount}`);
+        setIdAccount(response.data)
     }
 
-    const handleCategoryClick = (id, index) => {
-        getAllOrderByIdStatus(id);
+    const handleCategoryClick = (idUser, id, index) => {
+        getAllOrderByIdStatus(idUser, id);
     };
     function formatNumberWithCommas(number) {
         if (number === undefined || number === null) {
@@ -45,7 +49,6 @@ export default function Order() {
     }, []);
     function formatDate(isoString) {
         const date = new Date(isoString);
-
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
         const year = date.getFullYear();
@@ -53,11 +56,14 @@ export default function Order() {
         const minutes = String(date.getMinutes()).padStart(2, '0');
         const seconds = String(date.getSeconds()).padStart(2, '0');
 
-        return `${day}/${month}/${year}`;
+        return `${year}${hours}${minutes}${seconds}`;
     }
     useEffect(() => {
-        getAllOrderByIdStatus(1);
+        getAllOrderByIdStatus(idAccount, 1);
     }, []);
+    useEffect(() => {
+        getAccountById()
+    }, {});
     return (
         <div>
             <body>
@@ -70,36 +76,49 @@ export default function Order() {
                 <div className='container-order'>
                     <div className='order-left'>
                         <div className='order-left-data'>
-                            {status.map((item, index) => (
-                                <div key={item.id}
-                                    className={`data-status ${selectedId === item.id ? 'selected' : ''}`}
-                                    onClick={() => handleClick(item.id, index)}>
-                                    <span>{item.name}</span>
+                            <div className='account-order'>
+                                <div className='image-account-order'>
+                                    <img src={idAccount.image} width={'50'}></img>
                                 </div>
-                            ))}
+                                <div className='content-account-order'>
+                                    <span>
+                                        {idAccount.name}
+                                    </span>
+                                    <br/>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div className='search-status-order'>
+                        {status.map((item, index) => (
+                            <div key={item.id}
+                                className={`data-order-status ${selectedId === item.id ? 'selected' : ''}`}
+                                onClick={() => handleClick(idAccount.id, item.id, index)}>
+                                <span>{item.name}</span>
+                            </div>
+                        ))}
                     </div>
                     <div className='order-right'>
                         {orders.length === 0 ? (
                             <div className='error-laptops'>
-                            <div className='icon-error-laptops'>
-                                <FaSadTear />
+                                <div className='icon-error-laptops'>
+                                    <FaSadTear />
+                                </div>
+                                <div className='content-error-laptops'>
+                                    <span>Chưa có sản phẩm</span>
+                                </div>
                             </div>
-                            <div className='content-error-laptops'>
-                                <span>Chưa có sản phẩm nào !</span>
-                            </div>
-                        </div>
                         ) : (
                             orders.map((item, index) => (
                                 <div key={index} className='data-right'>
+                                    <div className='data-key-order'>
+                                        <span>{formatDate(item.updatedAt)}</span>
+                                    </div>
                                     <div className='data-image-order'>
                                         <img width={'100'} src={item.laptop?.image} alt={`Image of ${item.laptop?.name}`} />
                                     </div>
                                     <div className='data-name-order'>
                                         <span>{item.laptop?.name}</span>
-                                    </div>
-                                    <div className='data-key-order'>
-                                        <span>{formatDate(item.createdAt)}</span>
                                     </div>
                                     <div className='data-quantity-order'>
                                         <span>{item.quantity} Sản phẩm</span>
