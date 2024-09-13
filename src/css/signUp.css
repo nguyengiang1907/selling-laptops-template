@@ -1,0 +1,52 @@
+.form-signUp{
+    width: 40%;
+    height: 430px;
+    background: white;
+    border-radius: 5px;
+    border: solid 1px rgb(233, 233, 233);
+    margin: 0 auto;
+}
+.title-signUp{
+    width: 100%;
+    height: 10%;
+    margin-top: 5%;
+    text-align: center;
+    font-size: 24px;
+}
+.div-signUp-name{
+    width: 100%;
+    height: 11%;
+}
+.input-signup{
+    width: 90%;
+    height: 30px;
+    margin: 10px 5% 0 4.5%;
+    text-indent: 5px;
+    border: solid 1px rgb(202, 202, 202);
+    outline: none;
+}
+.file-signup{
+    width: 90%;
+    height: 30px;
+    margin: 10px 5% 0 4.5%;
+}
+.button-signUp{
+    width: 100px;
+    height: 40px;
+    margin-left: 40%;
+    background: #dc2439 ;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+.container-signUp{
+    width: 100%;
+    height: 500px;
+    float: left;
+}
+.back-login{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    margin-top: 15px;
+}

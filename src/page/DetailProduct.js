@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import HeaderUser from '../layout/HeaderUser'
 import FooterUser from '../layout/FooterUser'
 import { IoIosRadioButtonOn } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import { GiPresent } from "react-icons/gi";
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import "../css/detailProduct.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DetailProduct() {
     const params = useParams();
     const [product, setProduct] = useState({});
-    const [idUser, setIdUser] = useState(2)
+    const [user, setUser] = useState([])
     const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
+    const notify = () => toast("Wow so easy!");
+
+    useEffect(() => {
+        checkAccount();
+    },[]);
+
+    async function checkAccount() {
+        const response = await axios.get("http://localhost:8080/api/account/check");
+        setUser(response.data);
+      }
 
     async function getLaptop() {
         const response = await axios.get(`http://localhost:8080/api/laptops/${params.id}`);
@@ -49,8 +63,9 @@ export default function DetailProduct() {
         setQuantity((prevQuantity) => prevQuantity + 1);
     };
 
-    const addLaptopToCart = (idUser, idLaptop) => {
-        fetch(`http://localhost:8080/api/cart/${idUser}/${idLaptop}`, {
+    const addLaptopToCart = (user, idLaptop) => {
+        if(user.id !== 0){
+        fetch(`http://localhost:8080/api/cart/${user.id}/${idLaptop}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,6 +80,9 @@ export default function DetailProduct() {
             .catch((error) => {
                 console.error('Error:', error);
             });
+        }else{
+            navigate("/login");
+        }
     };
     return (
         <div>
@@ -154,7 +172,7 @@ export default function DetailProduct() {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => addLaptopToCart(idUser, product.id)} className='button-detail-cart'>Thêm vào giỏ hàng</button>
+                        <button  onClick={() => addLaptopToCart(user, product.id)} className='button-detail-cart'>Thêm vào giỏ hàng</button>
                     </div>
                 </div>
                 <FooterUser />
