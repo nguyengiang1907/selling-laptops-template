@@ -9,26 +9,45 @@ import axios from 'axios';
 
 
 export default function HeaderUser() {
-  const [idUser, setIdUser] = useState(2);
+  const [user, setUser] = useState({});
   const [cart, setCart] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
-  async function getAccountById() {
-    const response = await axios.get(`http://localhost:8080/api/account/${idUser}`);
-    setIdUser(response.data)
+  useEffect(() => {
+    const checkAndSet = async () => {
+      await checkAccount();
+      setIsChecked(true)
+    }
+    checkAndSet();
+  }, []);
+
+  useEffect(() => {
+    if (isChecked) {
+      getCartById();
+    }
+  }, [isChecked]);
+
+  async function checkAccount() {
+    const response = await axios.get("http://localhost:8080/api/account/check");
+    setUser(response.data);
+    
   }
+
+  // async function logout() {
+  //   const response = await axios.get("http://localhost:8080/api/account/logout");
+
+  // }
+
+
   async function getCartById() {
-    const response = await axios.get(`http://localhost:8080/api/cart/${idUser}`)
-    setCart(response.data);
-
+    if (user.id !== 0 ) {
+      const response = await axios.get(`http://localhost:8080/api/cart/${user.id}`)
+      setCart(response.data);
+    }
   }
-  useEffect(() => {
-    getCartById();
-  }, []);
 
 
-  useEffect(() => {
-    getAccountById();
-  }, []);
+
 
   return (
     <div>
@@ -57,34 +76,38 @@ export default function HeaderUser() {
           </div>
           <div className='avatar'>
             <div className='icon-avatar'>
-              {idUser ? (
+              {user.id !== 0 ? (
                 <div className='icon-data-avatar'>
-                  <img width={25} src={idUser.image}></img>
+                  <img width={25} src={user.image}></img>
                 </div>
               ) : (
-                <>
-                  <RxAvatar />
-                </>
+                <Link className='link-style' to={"/login"}>
+                  <>
+                    <RxAvatar />
+                  </>
+                </Link>
               )}
             </div>
             <div className='account'>
-              {idUser ? (
+              {user.id !== 0 ? (
                 <div class="content-data-avatar">
                   <div class="select-wrapper">
-                    <div class="select-selected">{<span>{idUser.name}</span>}</div>
+                    <div class="select-selected">{<span>{user.name}</span>}</div>
                     <div class="options-container">
                       <Link to='/order' className="link-style">
                         <div class="option-avatar" data-value="1">Đơn hàng</div>
                       </Link>
-                      <div class="option-avatar" data-value="2">Đăng xuất</div>
+                      <div class="option-avatar" data-value="2" >Đăng xuất</div>
                     </div>
                   </div>
                 </div>
               ) : (
-                <>
-                  <span>Đăng nhập</span><br />
-                  <span>Đăng ký</span>
-                </>
+                <Link className='link-style' to={"/login"}>
+                  <>
+                    <span>Đăng nhập</span><br />
+                    <span>Đăng ký</span>
+                  </>
+                </Link>
               )}
             </div>
           </div>
@@ -93,7 +116,11 @@ export default function HeaderUser() {
               <button className='button-cart'>
                 <div className='quantity-header-cart'>
                   <p>
-                    {cart.length}
+                    {cart.length === 0 ? (
+                      "0"  // Nếu mảng cart rỗng, in ra 1
+                    ) : (
+                      cart.length  // Nếu mảng cart không rỗng, in ra 2
+                    )}
                   </p>
                 </div>
                 <div className='icon-cart'>

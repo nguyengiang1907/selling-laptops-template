@@ -13,8 +13,18 @@ import { Link } from 'react-router-dom';
 export default function HomeProduct() {
   const [categorys, setCategorys] = useState([]);
   const [laptops, setLaptops] = useState([]);
-  const [idUser, setIdUser] = useState(2);
+  const [user, setUser] = useState(2);
   const [selectedOption, setSelectedOption] = useState('');
+
+  useEffect(() =>{
+    checkAccount();
+  },[])
+
+  async function checkAccount() {
+    const response = await axios.get("http://localhost:8080/api/account/check");
+    setUser(response.data);
+    
+  }
 
   async function showCategory() {
     const response = await axios.get("http://localhost:8080/api/category");
@@ -25,9 +35,10 @@ export default function HomeProduct() {
     const response = await axios.get("http://localhost:8080/api/laptops");
     setLaptops(response.data)
   }
-  async function saveSeenLaptop(idUser, idLaptop) {
-    const response = await axios.post(`http://localhost:8080/api/seen/${idUser}/${idLaptop}`);
-
+  async function saveSeenLaptop( idLaptop) {
+    if(user.id !== 0){
+      const response = await axios.post(`http://localhost:8080/api/seen/${user.id}/${idLaptop}`);
+    }
   }
 
 
@@ -166,7 +177,7 @@ export default function HomeProduct() {
             ) : (
                 laptops.map((item, index) => (
                     <Link to={`/detailProduct/${item.id}`} key={item.id}>
-                        <div className='all-product' onClick={() => saveSeenLaptop(idUser, item.id)}>
+                        <div className='all-product' onClick={() => saveSeenLaptop(item.id)}>
                             <div className='image-product'>
                                 <div className='data-category'>
                                     <img width="170px" src={item.image} alt={item.name}></img>

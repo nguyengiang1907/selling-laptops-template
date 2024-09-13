@@ -6,14 +6,38 @@ import axios from 'axios';
 import { FaSadTear } from "react-icons/fa";
 
 export default function Order() {
-    const [idAccount, setIdAccount] = useState(2);
+    const [user,setUser] = useState({});
     const [status, setStatus] = useState([]);
     const [orders, setOrders] = useState([]);
     const [selectedId, setSelectedId] = useState(1);
 
-    const handleClick = (idUser, id, index) => {
+
+    useEffect(() => {
+        const runEffects = async () => {
+            // 1. Chạy checkAccount trước
+            await checkAccount();
+            
+            // 2. Chạy getAllStatus và thay đổi tiêu đề trang sau khi checkAccount hoàn tất
+            getAllStatus();
+            document.title = "Đơn hàng";
+            
+            // 3. Đảm bảo rằng user.id đã được cập nhật và sau đó gọi getAllOrderByIdStatus
+            if (user.id) {
+                getAllOrderByIdStatus(user.id, 1);
+            }
+        };
+    
+        runEffects();
+    }, [user.id]); 
+
+    async function checkAccount() {
+        const response = await axios.get("http://localhost:8080/api/account/check");
+        setUser(response.data);    
+      }
+
+    const handleClick = ( id, index) => {
         setSelectedId(id);
-        handleCategoryClick(idUser, id, index);
+        handleCategoryClick(user.id,id, index);
     };
 
     async function getAllStatus() {
@@ -26,15 +50,12 @@ export default function Order() {
     }
     async function updateStatus(idOrder, idStatus, updateStatus) {
         const response = await axios.put(`http://localhost:8080/api/order/${idOrder}/${updateStatus}`);
-        handleCategoryClick(idAccount.id ,idStatus);
-    }
-    async function getAccountById() {
-        const response = await axios.get(`http://localhost:8080/api/account/${idAccount}`);
-        setIdAccount(response.data)
+        handleCategoryClick(user.id ,idStatus);
     }
 
-    const handleCategoryClick = (idUser, id, index) => {
-        getAllOrderByIdStatus(idUser, id);
+
+    const handleCategoryClick = (id, index) => {
+        getAllOrderByIdStatus(user.id,id);
     };
     function formatNumberWithCommas(number) {
         if (number === undefined || number === null) {
@@ -42,11 +63,6 @@ export default function Order() {
         }
         return number.toLocaleString("de-DE");
     }
-
-    useEffect(() => {
-        getAllStatus();
-        document.title = "Đơn hàng";
-    }, []);
     function formatDate(isoString) {
         const date = new Date(isoString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -58,12 +74,6 @@ export default function Order() {
 
         return `${year}${hours}${minutes}${seconds}`;
     }
-    useEffect(() => {
-        getAllOrderByIdStatus(idAccount, 1);
-    }, []);
-    useEffect(() => {
-        getAccountById()
-    }, {});
     return (
         <div>
             <body>
@@ -78,11 +88,11 @@ export default function Order() {
                         <div className='order-left-data'>
                             <div className='account-order'>
                                 <div className='image-account-order'>
-                                    <img src={idAccount.image} width={'50'}></img>
+                                    <img src={user.image} width={'50'}></img>
                                 </div>
                                 <div className='content-account-order'>
                                     <span>
-                                        {idAccount.name}
+                                        {user.name}
                                     </span>
                                     <br/>
                                 </div>
@@ -93,7 +103,7 @@ export default function Order() {
                         {status.map((item, index) => (
                             <div key={item.id}
                                 className={`data-order-status ${selectedId === item.id ? 'selected' : ''}`}
-                                onClick={() => handleClick(idAccount.id, item.id, index)}>
+                                onClick={() => handleClick( item.id, index)}>
                                 <span>{item.name}</span>
                             </div>
                         ))}

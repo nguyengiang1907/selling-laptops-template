@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import HeaderUser from '../layout/HeaderUser';
 import FooterUser from '../layout/FooterUser';
+import { useNavigate } from 'react-router-dom';
 import { IoArrowUndoCircleOutline } from "react-icons/io5";
 import { RiRam2Line } from "react-icons/ri";
 import { HiMiniCpuChip } from "react-icons/hi2";
@@ -13,7 +14,7 @@ import ReactPaginate from 'react-paginate';
 import { FaSadTear } from "react-icons/fa";
 
 export default function Cart() {
-    const [idUser, setIdUser] = useState(2);
+    const [user, setUser] = useState({});
     const [listCart, setListCart] = useState([]);
     const [sumPriceOrder, setSumPriceOrder] = useState(0);
     const [listSeen, setListSeen] = useState([]);
@@ -22,15 +23,48 @@ export default function Cart() {
     const [comment,setComent] = useState("");
     const [discountCode,setDiscountCode] = useState("");
     const [idStatus,setIdStatus] = useState(1);
+    const [isChecked, setIsChecked] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkAndSet = async () => {
+            console.log('checkAccount useEffect running');
+            await checkAccount();
+            setIsChecked(true);
+        };
+        checkAndSet();
+    }, []);
+    
+    useEffect(() => {
+        if (isChecked) {
+            console.log('showCart useEffect running');
+            showCart();
+            document.title = "Giỏ hàng";
+        }
+    }, [isChecked]);
+    
+    useEffect(() => {
+        if (isChecked) {
+            console.log('getSeenLaptop useEffect running');
+            getSeenLaptop();
+        }
+    }, [isChecked]);
+
+    async function checkAccount() {
+        const response = await axios.get("http://localhost:8080/api/account/check");
+        setUser(response.data);
+      }
 
     async function showCart() {
-        const response = await axios.get(`http://localhost:8080/api/cart/${idUser}`);
-        setListCart(response.data);
+        if(user.id !== 0){
+            const response = await axios.get(`http://localhost:8080/api/cart/${user.id}`);
+            setListCart(response.data);
+        }
     }
 
     async function getSeenLaptop() {
         try {
-            const response = await axios.get(`http://localhost:8080/api/seen/${idUser}`);
+            const response = await axios.get(`http://localhost:8080/api/seen/${user.id}`);
             const data = response.data;
 
             // Kiểm tra data có phải là mảng không
@@ -63,15 +97,8 @@ export default function Cart() {
         const response = await axios.get(`http://localhost:8080/api/cart/reduce/${idCart}`);
         showCart();
     }
+    
 
-    useEffect(() => {
-        getSeenLaptop();
-    }, []);
-
-    useEffect(() => {
-        showCart();
-        document.title = "Giỏ hàng";
-    }, []);
 
     useEffect(() => {
         if (listCart && listCart.length > 0) {
@@ -108,18 +135,22 @@ export default function Cart() {
     };
 
     async function saveOrder(){
-        
-        const request = {
-            idStatus:idStatus,
-            listCart:listCart,
-            comment:comment,
-            discountCode:discountCode
+        if(user.id !== 0){
+            const request = {
+                idStatus:idStatus,
+                listCart:listCart,
+                comment:comment,
+                discountCode:discountCode
+            }
+            console.log(request);
+    
+            const response = await axios.post(`http://localhost:8080/api/order`, request)
+            console.log(response);
+            window.location.reload();
+        }else{
+            navigate("/login")
         }
-        console.log(request);
-
-        const response = await axios.post(`http://localhost:8080/api/order`, request)
-        console.log(response);
-        window.location.reload();
+        
     }
 
 
